@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HelpDesk System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <div class="login-screen" id="login-screen">
+      <div class="login-card">
+        <div class="login-card__header">
+          <span class="login-card__icon" aria-hidden="true">🖥️</span>
+          <h1 class="login-card__title">HelpDesk System</h1>
+          <p class="login-card__sub">Faça login para continuar</p>
+        </div>
+
+        <div class="role-tabs" role="tablist" aria-label="Selecionar perfil">
+          <button class="role-tab role-tab--active" id="tab-user" role="tab" aria-selected="true" aria-controls="panel-user" data-role="usuario">👤 Usuário</button>
+          <button class="role-tab" id="tab-support" role="tab" aria-selected="false" aria-controls="panel-support" data-role="suporte">🛠️ Suporte</button>
+        </div>
+
+        <form class="login-panel" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
+          <div class="form__group">
+            <label class="form__label" for="login-user-name">Nome</label>
+            <input class="form__input" id="login-user-name" type="text" placeholder="Ex: João Silva" autocomplete="name" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="login-user-pass">Senha</label>
+            <input class="form__input" id="login-user-pass" type="password" placeholder="••••••••" required />
+          </div>
+          <p class="login-hint">💡 Use qualquer senha para demonstração.</p>
+          <button class="btn btn--primary btn--full" id="btn-login-user" type="submit">Entrar como Usuário</button>
+        </form>
+
+        <form class="login-panel login-panel--hidden" id="panel-support" role="tabpanel" aria-labelledby="tab-support">
+          <div class="form__group">
+            <label class="form__label" for="login-sup-name">Nome do Agente</label>
+            <input class="form__input" id="login-sup-name" type="text" placeholder="Ex: Ana Costa" autocomplete="name" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="login-sup-pass">Senha</label>
+            <input class="form__input" id="login-sup-pass" type="password" placeholder="••••••••" required />
+          </div>
+          <p class="login-hint">💡 Use qualquer senha para demonstração.</p>
+          <button class="btn btn--primary btn--full" id="btn-login-support" type="submit">Entrar como Suporte</button>
+        </form>
+
+        <p class="login-footer">Projeto de Portfólio · HTML5 / CSS3 / JavaScript</p>
+      </div>
+    </div>
+
+    <div class="app" id="app" hidden>
+
+      <header class="header">
+        <div class="header__inner">
+          <div class="header__brand">
+            <span class="header__icon" aria-hidden="true">🖥️</span>
+            <div>
+              <h1 class="header__title">HelpDesk System</h1>
+              <p class="header__subtitle">Gerenciamento de Chamados</p>
+            </div>
+          </div>
+          <div class="header__right">
+            <span class="header__badge" id="header-date"></span>
+            <div class="header__user">
+              <span class="header__user-avatar" id="header-avatar">👤</span>
+              <div class="header__user-info">
+                <span class="header__user-name" id="header-username">—</span>
+                <span class="header__user-role" id="header-role">—</span>
+              </div>
+            </div>
+            <button class="btn btn--logout" id="btn-logout" title="Sair">↩ Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+
+        <section class="section" aria-labelledby="dashboard-heading">
+          <h2 class="section__title" id="dashboard-heading">Dashboard</h2>
+          <div class="dashboard">
+            <article class="card card--open">
+              <div class="card__icon" aria-hidden="true">📋</div>
+              <div class="card__body">
+                <span class="card__count" id="count-open">0</span>
+                <span class="card__label">Chamados Abertos</span>
+              </div>
+            </article>
+            <article class="card card--progress">
+              <div class="card__icon" aria-hidden="true">⚙️</div>
+              <div class="card__body">
+                <span class="card__count" id="count-progress">0</span>
+                <span class="card__label">Em Andamento</span>
+              </div>
+            </article>
+            <article class="card card--done">
+              <div class="card__icon" aria-hidden="true">✅</div>
+              <div class="card__body">
+                <span class="card__count" id="count-done">0</span>
+                <span class="card__label">Concluídos</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section--user-only" id="section-new-ticket" aria-labelledby="form-heading">
+          <h2 class="section__title" id="form-heading">Abrir Novo Chamado</h2>
+          <div class="form-card">
+            <form class="form" id="ticket-form" aria-label="Abrir novo chamado">
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="user-name">Nome do Usuário <span class="required">*</span></label>
+                  <input class="form__input" id="user-name" type="text" placeholder="Ex: João Silva" autocomplete="name" />
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="sector">Setor <span class="required">*</span></label>
+                  <input class="form__input" id="sector" type="text" placeholder="Ex: Financeiro, RH, TI..." />
+                </div>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="subject">Assunto do Problema <span class="required">*</span></label>
+                  <input class="form__input" id="subject" type="text" placeholder="Ex: Computador não liga" />
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="priority">Nível de Prioridade <span class="required">*</span></label>
+                  <select class="form__select" id="priority">
+                    <option value="">Selecione...</option>
+                    <option value="baixa">🟢 Baixa</option>
+                    <option value="media">🟡 Média</option>
+                    <option value="alta">🔴 Alta</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="description">Descrição do Problema <span class="required">*</span></label>
+                <textarea class="form__textarea" id="description" rows="4" placeholder="Descreva o problema com o máximo de detalhes possível..."></textarea>
+              </div>
+              <div class="form__actions">
+                <button class="btn btn--secondary" id="btn-clear" type="button">Limpar Campos</button>
+                <button class="btn btn--primary" id="btn-submit" type="submit">＋ Abrir Chamado</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="list-heading">
+          <div class="list-header">
+            <h2 class="section__title" id="list-heading">Lista de Chamados</h2>
+            <div class="list-controls">
+              <label class="sr-only" for="filter-status">Filtrar por status</label>
+              <select class="form__select form__select--sm" id="filter-status">
+                <option value="todos">Todos os status</option>
+                <option value="aberto">Abertos</option>
+                <option value="andamento">Em Andamento</option>
+                <option value="concluido">Concluídos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="empty-state" id="empty-state">
+            <span class="empty-state__icon" aria-hidden="true">📂</span>
+            <p class="empty-state__text">Nenhum chamado encontrado.</p>
+            <p class="empty-state__sub">Abra um chamado usando o formulário acima.</p>
+          </div>
+
+          <div class="table-wrapper" id="table-wrapper" hidden>
+            <table class="table" aria-label="Lista de chamados">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Usuário / Setor</th>
+                  <th scope="col">Assunto</th>
+                  <th scope="col">Prioridade</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Aberto em</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="ticket-list"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="footer">
+        <p>HelpDesk System &mdash; Projeto de Portfólio &bull; Desenvolvido com HTML5, CSS3 &amp; JavaScript</p>
+      </footer>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="modal-title">
+      <div class="modal">
+
+        <div class="modal__header">
+          <h2 class="modal__title" id="modal-title">Detalhes do Chamado</h2>
+          <button class="modal__close" id="modal-close" aria-label="Fechar modal">✕</button>
+        </div>
+
+        <div class="modal__body">
+
+          <div class="detail-grid" id="modal-detail-grid"></div>
+
+          <div class="detail-section">
+            <h3 class="detail-section__title">📝 Descrição</h3>
+            <p class="detail-description" id="modal-description"></p>
+          </div>
+
+          <div class="detail-section" id="tech-response-section" hidden>
+            <h3 class="detail-section__title">🔧 Resposta Técnica</h3>
+            <p class="detail-description detail-description--tech" id="modal-tech-response"></p>
+          </div>
+
+          <div class="detail-section">
+            <h3 class="detail-section__title">💬 Histórico de Comentários</h3>
+            <div class="comments" id="modal-comments">
+              <p class="comments__empty" id="comments-empty">Nenhum comentário ainda.</p>
+            </div>
+          </div>
+
+          <div class="detail-section" id="comment-form-section">
+            <h3 class="detail-section__title">✍️ Adicionar Resposta</h3>
+            <div class="comment-form">
+              <textarea class="form__textarea" id="comment-text" rows="3" placeholder="Digite sua resposta ou atualização sobre o chamado..."></textarea>
+              <div class="form__actions">
+                <button class="btn btn--primary btn--sm" id="btn-add-comment" type="button">Enviar Comentário</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
